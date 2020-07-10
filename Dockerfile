@@ -9,7 +9,9 @@ ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 
 # this is the version of LMS to use
-ARG VERSION=7.9.2
+#
+# ARG VERSION=7.9.2
+ARG VERSION=8.0
 ARG PACKAGE_URL=http://www.mysqueezebox.com/update/?version=${VERSION}&revision=1&geturl=1&os=deb
 
 # Install requirements and utilities
