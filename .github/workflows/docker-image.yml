@@ -5,9 +5,9 @@ on:
      types: [published]
  
 jobs:
-build:
-runs-on: ubuntu-latest
-steps:
+ build:
+ runs-on: ubuntu-latest
+ steps:
             - uses: actions/checkout@v1
             - name: Login to DockerHub Registry
               run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
@@ -22,3 +22,4 @@ steps:
               run: docker build . --file Dockerfile --build-arg VERSION=8.0 --tag kidhazy/logitech-media-server:latest
             - name: Push the latest Docker image
               run: docker push kidhazy/logitech-media-server:latest
+              
