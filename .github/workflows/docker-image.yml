@@ -7,7 +7,7 @@ types: [published]
 jobs:
 build:
 runs-on: ubuntu-latest
-        steps:
+steps:
             - uses: actions/checkout@v1
             - name: Login to DockerHub Registry
               run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
