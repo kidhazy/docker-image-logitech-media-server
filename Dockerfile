@@ -2,6 +2,8 @@
 
 #RUN [ "cross-build-start" ]
 FROM arm32v7/debian:stretch-slim
+COPY qemu-arm-static /usr/bin
+
 #COPY tmp/qemu-arm-static /usr/bin/qemu-arm-static
 #COPY --from=biarms/qemu-bin /usr/bin/qemu-arm-static /usr/bin/qemu-arm-static
 
