@@ -1,11 +1,14 @@
-#FROM balenalib/armv7hf-debian
+FROM golang:1.12.0 AS builder
+# Uses an amd64 image to download the qemu-arm-static binary for the arm image in the next build step
+# This allows the arm images to be built on x86 architecture - eg. the Docker Hub automatic build platform
+# Also needs the hooks/pre_build steps to register qemu-arm-static 
+WORKDIR /builder/working/directory
+RUN curl -L https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-arm.tar.gz | tar zxvf - -C . && mv qemu-3.0.0+resin-arm/qemu-arm-static .
 
-#RUN [ "cross-build-start" ]
 FROM arm32v7/debian:stretch-slim
-COPY qemu-arm-static /usr/bin
-
-#COPY tmp/qemu-arm-static /usr/bin/qemu-arm-static
-#COPY --from=biarms/qemu-bin /usr/bin/qemu-arm-static /usr/bin/qemu-arm-static
+# Copy across the qemu binary that was downloaded in the previous build step.  
+# This is to allow us to build on the x86 architecture of the Docker Hub environment for automatic builds.
+COPY --from=builder /builder/working/directory/qemu-arm-static /usr/bin
 
 LABEL maintainer="Lars Kellogg-Stedman <lars@oddbit.com>"
 LABEL maintainer="Raymond M Mouthaan <raymondmmouthaan@gmail.com>"
@@ -45,4 +48,3 @@ COPY entrypoint.sh /entrypoint.sh
 COPY start-squeezebox.sh /start-squeezebox.sh
 RUN chmod 755 /entrypoint.sh /start-squeezebox.sh
 ENTRYPOINT ["/entrypoint.sh"]
-#RUN [ "cross-build-end" ]
