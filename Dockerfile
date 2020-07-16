@@ -1,5 +1,6 @@
 FROM arm32v7/debian:stretch-slim
-COPY tmp/qemu-arm-static /usr/bin/qemu-arm-static
+#COPY tmp/qemu-arm-static /usr/bin/qemu-arm-static
+COPY --from=biarms/qemu-bin /usr/bin/qemu-arm-static /usr/bin/qemu-arm-static
 
 LABEL maintainer="Lars Kellogg-Stedman <lars@oddbit.com>"
 LABEL maintainer="Raymond M Mouthaan <raymondmmouthaan@gmail.com>"
