@@ -1,5 +1,5 @@
 FROM arm32v7/debian:stretch-slim
-#COPY tmp/qemu-arm-static /usr/bin/qemu-arm-static
+COPY tmp/qemu-arm-static /usr/bin/qemu-arm-static
 
 LABEL maintainer="Lars Kellogg-Stedman <lars@oddbit.com>"
 LABEL maintainer="Raymond M Mouthaan <raymondmmouthaan@gmail.com>"
@@ -15,11 +15,11 @@ ARG VERSION=8.0
 ARG PACKAGE_URL=http://www.mysqueezebox.com/update/?version=${VERSION}&revision=1&geturl=1&os=deb
 
 # Install requirements and utilities
-RUN apt-get update && \
-    apt-get -y install curl wget nano faad flac lame sox libio-socket-ssl-perl \
+RUN apt-get update 
+RUN apt-get -y install curl wget nano faad flac lame sox libio-socket-ssl-perl \
     iputils-ping \
-    iproute2 \
-    && apt-get clean
+    iproute2 
+RUN apt-get clean
 
 # Download and install LMS
 RUN echo download LMS from $PACKAGE_URL && \
