@@ -1,11 +1,12 @@
-#FROM balenalib/armv7hf-debian
+FROM golang:1.12.0 AS builder
+# ... my go build steps (removed from this example)
+WORKDIR /builder/working/directory
+RUN curl -L https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-arm.tar.gz | tar zxvf - -C . && mv qemu-3.0.0+resin-arm/qemu-arm-static .
 
-#RUN [ "cross-build-start" ]
 FROM arm32v7/debian:stretch-slim
-COPY qemu-arm-static /usr/bin
+COPY --from=builder /builder/working/directory/qemu-arm-static /usr/bin
 
-#COPY tmp/qemu-arm-static /usr/bin/qemu-arm-static
-#COPY --from=biarms/qemu-bin /usr/bin/qemu-arm-static /usr/bin/qemu-arm-static
+#COPY qemu-arm-static /usr/bin
 
 LABEL maintainer="Lars Kellogg-Stedman <lars@oddbit.com>"
 LABEL maintainer="Raymond M Mouthaan <raymondmmouthaan@gmail.com>"
