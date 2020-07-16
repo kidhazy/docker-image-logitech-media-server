@@ -1,7 +1,7 @@
-FROM balenalib/armv7hf-debian
+#FROM balenalib/armv7hf-debian
 
-RUN [ "cross-build-start" ]
-#FROM arm32v7/debian:stretch-slim
+#RUN [ "cross-build-start" ]
+FROM arm32v7/debian:stretch-slim
 #COPY tmp/qemu-arm-static /usr/bin/qemu-arm-static
 #COPY --from=biarms/qemu-bin /usr/bin/qemu-arm-static /usr/bin/qemu-arm-static
 
@@ -43,4 +43,4 @@ COPY entrypoint.sh /entrypoint.sh
 COPY start-squeezebox.sh /start-squeezebox.sh
 RUN chmod 755 /entrypoint.sh /start-squeezebox.sh
 ENTRYPOINT ["/entrypoint.sh"]
-RUN [ "cross-build-end" ]
+#RUN [ "cross-build-end" ]
